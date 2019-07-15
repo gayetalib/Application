@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+ 
+{% block CSS %}
+     <style>
+       #aff{
+        font-weight:bold;
+       }
+     </style>
+
+{% endblock  %}
+
+{% block body %} 
+        
+      <h1>Liste des articles </h1>
+      {% if article %}
+         
+          <table id="article" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Nom Article</th>
+                        <th>Désignation</th>
+                        <th>Alerte Stock</th>
+                        <th>Quantité Stockée</th>
+                        <th>Type</th>
+                        <th>Unité</th>
+                        <th>Etat</th>   
+                    </tr>
+                </thead>
+                <tbody>
+               
+                  {% for article in article %}
+  
+                
+                     {%  if article.QuantiteStock <= article.AlerteStock %}  
+                       
+                        <tr>
+                          
+                              <td style="font-weight:bold">{{ article.id }}</td>
+                              <td style="color: red" id="aff" class="glow">{{ article.NomArticle }}</td>
+                              <td id="aff">{{ article.Designation }}</td>
+                              <td >{{ article.AlerteStock }}</td>
+                              <td style="color: red;font-weight:bold" id="aff">{{ article.QuantiteStock }}</td>
+                              <td id="aff">{{ article.types }}</td>
+                              <td id="aff">{{ article.unites }}</td>
+                            
+                              <td id="aff">{{ article.situation }}</td>
+                              <td>
+                              <a href="/article/{{ article.id }}" class="btn btn-primary">Modifier</a> 
+                              <a href="/bloquerArticle/{{ article.id }}" class="btn btn-warning">Bloquer</a> 
+                              <a href="/debloquerArticle/{{ article.id }}" class="btn btn-success">Débloquer</a>
+                            </td>
+
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+                                
+
+                            <td style="font-weight:bold">{{ article.id }}</td>
+                            <td id="aff">{{ article.NomArticle }}</td>
+                            <td id="aff">{{ article.Designation }}</td>
+                            <td id="aff">{{ article.AlerteStock }}</td>
+                            <td id="aff">{{ article.QuantiteStock }}</td>
+                            <td id="aff">{{ article.types }}</td>
+                            <td id="aff">{{ article.unites }}</td>
+                            <td id="aff">{{ article.situation }}</td>
+                            <td>
+                            <a href="/article/{{ article.id }}" class="btn btn-primary">Modifier</a>  
+                            <a href="/bloquerArticle/{{ article.id }}" class="btn btn-warning">Bloquer</a>
+                            <a href="/debloquerArticle/{{ article.id }}" class="btn btn-success">Débloquer</a> 
+                          </td>
+
+                          </tr>
+  
+                      {% endif %}
+
+                    {% endfor %}
+              
+                  </tbody>
+             </table>  
+             
+             
+          {% else %}
+        
+      
+     {% endif %}
+
+         
+ {# <script>
+  alerts('Les articles en rouge doivent etre approvisionnés');
+</script> #}
+{% endblock %}
+
+{% block javascripts %}
+  <script src="main.js"></script>
+  
+  
+{% endblock %}

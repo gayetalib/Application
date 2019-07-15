@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste service{% endblock %}
+{% block body %}
+ <h1>Liste des Services, Départements et Directions</h1>
+  {% if service %}
+    <table id="service" class="table table-striped">
+      <thead>
+        <tr>
+            <th>N°</th>
+            <th>Service</th>
+            <th>Département</th>
+            <th>Direction</th>
+            {# <th>Diretion</th> #}
+        </tr>
+      </thead>
+      <tbody>
+        {% for service in service %}
+           
+          <tr>
+                <td>{{ service.id }}</td>
+                <td>{{ service.NomService }}</td>
+                <td>{{ service.departements }}</td>  
+                <td>{{ service.departements.directions }}</td>          
+            <td>
+              {# <a href="" class="btn btn-dark">Show</a> #}
+              <a href="/service/{{ service.id }}" class="btn btn-success">Modifier</a>
+              <a href="/supprimerService/{{ service.id }}" class="btn btn-danger delete-service" data-id="{{ service.id }}" onclick="return confirm('Etes-vous sûr de vouloir effectuer la suppession? ')">Supprimer</a>
+            </td>
+          </tr>
+          
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  {% else %}
+    <p style="color: red;font-size:50px">La liste des Utilisateurs est vide pour l'instant</p>
+  {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+   <script src="{{ asset('stockCSS/main.js') }}"></script> 
+{% endblock %}

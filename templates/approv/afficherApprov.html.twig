@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste cons{% endblock %}
+{% block body %}
+ <h1>Liste des Approvisionnememnts</h1>
+  {% if cons %}
+    <table id="cons" class="table table-striped">
+      <thead>
+        <tr>
+            <th>N°</th>
+            <th>Num Commande</th>
+            <th>Date Entrée</th>
+            <th>Heure</th>
+            <th>Article</th>
+            <th>Quantite Approv</th>
+            <th>Fournisseur</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for cons in cons %}
+          <tr>
+                <td>{{ cons.id }}</td>
+                <td>{{ cons.NumeroCommande }}</td>
+                <td>{{ cons.DateEntree |date("d/m/Y") }}</td>
+                <td>{{ cons.DateEntree |date("H:i") }}</td>
+                <td>{{ cons.articles }}</td>
+                <td>{{ cons.QuantiteApprov }}</td>
+                <td>{{ cons.fournisseurs }}</td>
+                
+                
+            <td>
+             
+              <a href="/approv/{{ cons.id }}" class="btn btn-success">Modifier</a>
+              <a href="/supprimerApprov/{{ cons.id }}" class="btn btn-danger delete-cons" data-id="{{ cons.id }}" onclick="return confirm('Etes-vous sûr de vouloir effectuer la suppession? ')">Supprimer</a>
+            </td>
+          </tr>
+          
+        {% endfor %}
+      
+      </tbody>
+    </table>
+  {% else %}
+    <p style="color: red;font-size:50px">La liste des Approvisionnememnts est vide pour l'instant</p>
+  {% endif %}
+{% endblock %}
+{% block javascripts %}
+   <script src="{{ asset('stockCSS/main.js') }}"></script> 
+{% endblock %}
