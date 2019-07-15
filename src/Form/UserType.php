@@ -25,29 +25,30 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('roles', ChoiceType::class,[
+                'data_class' => null,
                 'choices' => [
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                     'Super Admin' => 'ROLE_SUPER_ADMIN',
                 ],
-            ]);
+            ])
             // ->addModelTransformer($transformer);
 
         // StringToArrayTransformer(roles);
            
         // $builder->get('roles')
            
-        //     ->addModelTransformer(new CallbackTransformer(
-        //         function ($roles) {
-        //             // transform the array to a string
-        //             return implode(', ', (array)$roles);
-        //         },
-        //         function ($roles) {
-        //             // transform the string back to an array
-        //             return explode(', ', (string)$roles);
-        //         }
-        //     ))
-        // ;
+            // ->addModelTransformer(new CallbackTransformer(
+            //     function ($roles) {
+            //         // transform the array to a string
+            //         return implode(', ', (array)$roles);
+            //     },
+            //     function ($roles) {
+            //         // transform the string back to an array
+            //         return explode(', ', (string)$roles);
+            //     }
+            // ))
+        ;
 
         //roles field data transformer
 // $builder->get('roles')

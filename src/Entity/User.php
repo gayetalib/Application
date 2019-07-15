@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -25,7 +26,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *   message="Email déjà utilisé. Veuillez entrer un autre"
  * )
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable 
 {
     /**
      * @ORM\Id()
@@ -144,66 +145,23 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
     private $roles;
 
-    public function __construct()
-    {
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     public function getRoles()
     {
+        
         return $this->roles;
-        // return array('ROLE_USER');
+    
     }
 
-    public function getRolesCollection()
+    public function setRoles($roles): self
     {
-        return $this->roles;
+        $this->roles = $roles;
+
+        return $this;
     }
-    
-// /**
-//  * @ORM\Column(type="json")
-//  */
-// private $roles;
-
-// public function getRoles(): array
-// {
-//    return  $roles = $this->roles;
-//     // guarantee every user at least has ROLE_USER
-//     // $roles = ['ROLE_USER'];
-
-    
-// }
-
-    // /**
-    //  * @ORM\Column(type="json")
-    //  */
-    // private $roles;
-    
-    //     /**
-    //  * Returns the roles granted to the user.
-    //  * 
-    //  * @return Role[] The user roles
-    //  */
-    // public function getRoles()
-    // {
-    //         return $this->roles;   
-
-    //         // return array('ROLE_USER'); regle le probleme
-    // }
-    // public function getRoles()
-    // {
-    //     return $this->roles;
-    // }
-     
-
-    //     public function getRoles()
-    // {
-    //     return array('ROLE_USER');
-    // }
 
         // public function getRoles()
         // {
@@ -217,50 +175,9 @@ class User implements UserInterface, \Serializable
         // }
     
 
-        //     public function __construct()
-        //   {
-        //    $this->roles=array('searcher' ,'annoucer');
-        //  }
-        // public function getRoles(): array
-        // {
-        //  $roles = $this->roles;
-        // // guarantee every user at least has ROLE_USER
-        //  return $roles= [
-        //     'ROLE_USER'
-        // ];
-
-        // //    return array_unique($roles);
-        // }
-
-        // public function __construct()
-        // {
-        //     $this->roles = [];
-        // }
    
-        // public function getRoles(): array
-        // {
-
-           
-        //     return ['ROLE_USER'];  //marche pour la connexion
-            // return $this->roles;  //marche pour ajouter User
-           
-        // }
-
-        // public function getRoles()
-        // {
-               
-               
-        //         return ['ROLE_ADMIN'];
-        // }
-
-        public function setRoles($roles): self
-        {
-            $this->roles = $roles;
-
-            return $this;
-        }
-
-    //Ajot donctionne avec json_array de setRoles    
+        
+      
 
         /**
          * Returns the password used to authenticate the user.
