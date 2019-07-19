@@ -8,8 +8,6 @@
 {% endblock %}
 {% block body %}
 
-
-
  <h1>Liste des Utilisateurs</h1>
   {% if user %}
     <table id="user" class="table table-striped">
@@ -33,13 +31,35 @@
               <td>{{ user.matricule }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.username }}</td>
-              <td>{{ user.roles }}</td>   
+              <td>
+                    {{ user.roles[0] }}
+                  
+              </td>
+              
               <td>
                 <a href="/user/{{ user.id }}" class="btn btn-success">Modifier</a>
-                <a href="/supprimerUser/{{ user.id }}" class="btn btn-danger delete-user"  onclick="alert('Etes-vous sûr de vouloir supprimer ?')">Supprimer</a>
-                <!-- <a href="/supprimerUser/{{ user.id }}" class="btn btn-danger" data-target="#exampleModal"> -->
-                  Launch demo modal
-                </a> 
+                <a class="btn btn-danger delete-user" data-toggle="modal" data-target="#exampleModal">Supprimer</a>
+                <!-- Message de Confirmation -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel" style="color: red;font-weight:bold">Suppression</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3 style="font-weight:bold">Voulez-vous effectuer la suppression ?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size:20px">Annuler</button>
+          <a href="/supprimerUser/{{ user.id }}"><button type="button" class="btn btn-primary" style="font-size:20px">Confirmer</button></a>
+        </div>
+      </div>
+    </div>
+</div>
               </td>
           </tr>
         {% endfor %}
@@ -50,6 +70,7 @@
   {% endif %}
 
 
+  
 {% endblock %}
 
 

@@ -21,7 +21,7 @@ class Consommation
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $DateConsommation;
 
@@ -38,6 +38,10 @@ class Consommation
     private $articles;
 
     /**
+     *  @Assert\GreaterThan(
+     *  value=0,
+     *  message="Cette valeur doit etre positive"
+     * )
      * @ORM\Column(type="integer")
      */
     public $QuantiteCons;

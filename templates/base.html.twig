@@ -36,7 +36,26 @@
         href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic') }}">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-
+  <div class="modal fade" id="gaye" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel" style="color: red;font-weight:bold">Déconnexion</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3 style="font-weight:bold">Voulez-vous vous déconnecter ?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size:20px">Annuler</button>
+          <a href="{{ path('login') }}"><button type="button" class="btn btn-primary" style="font-size:20px">Confirmer</button></a>
+        </div>
+      </div>
+    </div>
+</div>
+ 
     
 <div class="wrapper">
    
@@ -65,12 +84,12 @@
          <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ asset('log.png') }}" class="user-image" alt="User Image">
-                <span class="" id="userConnected"></span>
+                <span class="" id="userConnected">{{ app.user.Prenom}} {{ app.user.Nom}}</span>
             </a>
 
             </li>
             <li>
-                <a href="{{ path('login') }}" onclick="alert('Vous etes sur le point de vous déconnecter')">
+                <a data-toggle="modal" data-target="#gaye">
                     <span class="" id="userConnected">Déconnexion</span>
                 </a>
             </li> 
@@ -107,8 +126,8 @@
             <li class="treeview">
               
             </li>
-            
-            <li class="treeview">
+            {% if is_granted('ROLE_ADMIN')  %}
+            <li class="active treeview menu-open">
               <a href="#">
                 <i class="fa fa-pie-chart"></i>
                 <span id="col_left"> Etablissement</span>
@@ -123,7 +142,8 @@
                 <li><a href="{{ path('afficherService') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Afficher liste</a></li>
               </ul>
             </li>
-            <li class="treeview">
+                {% endif %}
+            <li class="active treeview menu-open">
               <a href="#">
                 <i class="fa fa-laptop"></i>
                 <span id="col_left"> Article</span>
@@ -141,7 +161,7 @@
             </li>
           
              
-         <li class="treeview">
+         <li class="active treeview menu-open">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span id="col_left">Stock</span>
@@ -156,7 +176,8 @@
             <li><a href="{{ path('afficherApprov') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Liste des Approv</a></li>     
           </ul>
    </li>
-            <li class="treeview">
+   {% if is_granted('ROLE_ADMIN')  %}
+            <li class="active treeview menu-open">
                     <a href="#">
                       <i class="fa fa-laptop"></i>
                       <span id="col_left">Fournisseur</span>
@@ -169,71 +190,27 @@
                       <li><a href="{{ path('afficherFournisseur') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Liste des Fournisseurs</a></li>      
                     </ul>
              </li>
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-folder"></i> <span>Examples</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-share"></i> <span>Multilevel</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a> -->
-              <!-- <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level One
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                    <li class="treeview">
-                      <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      </ul>
-                    </li>
-                   </ul>
-                 </li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-               </ul> 
-               </li>  -->
-               <li class="treeview">
-                    <a href="#">
-                      <i class="fa fa-laptop"></i>
-                      <span id="col_left">Utilisateur</span>
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="{{ path('ajouterUser') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Ajouter Utlisateur</a></li>
-                      <li><a href="{{ path('afficherUser') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Liste des Utilisateurs</a></li>      
-                    </ul>
-             </li>
+             {% endif %}
+            
+               {% if is_granted('ROLE_SUPER_ADMIN') %}
+    
+                              <li class="treeview">
+                                        <a href="#">
+                                          <i class="fa fa-laptop"></i>
+                                          <span id="col_left">Utilisateur</span>
+                                          <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                          </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                          <li><a href="{{ path('ajouterUser') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Ajouter Utlisateur</a></li>
+                                          <li><a href="{{ path('afficherUser') }}" id="sous_col_left"><i class="fa fa-circle-o"></i> Liste des Utilisateurs</a></li>      
+                                        </ul>
+                               </li>
+
+                   {% endif %}
+
+               
           </ul>  
     </section>
     <!-- /.sidebar -->
@@ -243,6 +220,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+        
           <h3>
               <!-- Page d'accueil de la plateforme -->
           </h3>

@@ -145,16 +145,9 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles;
-
-    public function getRoles()
-    {
-        
-        return $this->roles;
-    
-    }
 
     public function setRoles($roles): self
     {
@@ -163,16 +156,18 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-        // public function getRoles()
-        // {
-        //     $roles = $this->roles;
-        //      var_dump($roles);
-        //     if ($roles != NULL) {
-        //         return explode(" ",$roles);
-        //     }else {
-        //        return $this->roles;
-        //     }
-        // }
+    public function getRoles()
+    {
+        
+        if($this->roles){
+            return $this->roles;
+        }else{
+            return ['ROLE_ADMIN'];
+        }
+    }
+         
+    
+   
     
 
    

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class FournisseurController extends AbstractController
 {
    /**
-     * @Route("/admin/ajouterFournisseur", name="ajouterFournisseur")
+     * @Route("/ajouterFournisseur", name="ajouterFournisseur")
      */
     public function fournisseur(Request $request,ObjectManager $manager){
         $fournisseur=new Fournisseur();
@@ -43,7 +43,7 @@ class FournisseurController extends AbstractController
   }
 
    /**
-     * @Route("/admin/afficherFournisseur", name="afficherFournisseur")
+     * @Route("/afficherFournisseur", name="afficherFournisseur")
      */
     public function afficherFournisseurr(){
       $fournisseur = $this->getDoctrine()
@@ -97,5 +97,52 @@ class FournisseurController extends AbstractController
       
       return $this->redirectToRoute('afficherFournisseur');
    }
+
+   /**
+       * @Route("/bloquerFournisseur/{id}", name="bloquerFournisseur")
+       */
+      public function bloquer($id, Request $request, ObjectManager $manager){
+        $article = $this->getDoctrine()
+        ->getRepository(Fournisseur::class)
+        ->find($id);
+        
+        
+         //Initialiser etat a 1
+        $article->setEtat(1);
+        $article->setSituation('Bloqué');
+    
+        // $manager->remove($article);
+        $manager->flush(); 
+  
+             
+      //   return $this->render('article/afficherArticle.html.twig',[
+      //     'article' => $article,
+      //      'etat' => $article->getEtat()
+      // ]);
+       return $this->redirectToRoute('afficherFournisseur');
+     }
+
+     /**
+       * @Route("/debloquerArticle/{id}", name="debloquerArticle")
+       */
+      public function debloquer($id, Request $request, ObjectManager $manager){
+        $article = $this->getDoctrine()
+        ->getRepository(Fournisseur::class)
+        ->find($id);
+        
+        
+         //Initialiser etat a 1
+        $article->setEtat(0);
+        $article->setSituation('Actif');
+        // $manager->remove($article);
+        $manager->flush(); 
+  
+             
+      //   return $this->render('article/afficherArticle.html.twig',[
+      //     'article' => $article,
+      //      'etat' => $article->getEtat()
+      // ]);
+       return $this->redirectToRoute('afficherFournisseur');
+     }
 
 }

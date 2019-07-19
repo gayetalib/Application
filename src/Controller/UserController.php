@@ -34,16 +34,22 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-    
-         $role = $form->get('roles')->getData();
-         $user->setRoles($role);
         
+          // session_start();
+          // $_SESSION['message']='Succes';
 
+         $role = $form->get('roles')->getData();
+         $user->setRoles($role); 
+        
+           
          $hash= $encoder->encodePassword($user, $user->getPassword());   
          $user->setPassword($hash);
          
          $manager->persist($user);
          $manager->flush();     
+
+        //  session_start();
+        //  $_SESSION['message']='Succes';
          
          $this->addFlash(
             'info',
@@ -52,7 +58,8 @@ class UserController extends AbstractController
          
         }
         return $this->render('user/ajouterUser.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'message' => 0
         ]);
     }
     /**
@@ -81,13 +88,13 @@ class UserController extends AbstractController
         ->add('email', TextType::class, array('attr' => array('class' => 'form-control')))
         ->add('username', TextType::class, array('attr' => array('class' => 'form-control')))
         ->add('password', TextType::class, array('attr' => array('class' => 'form-control')))
-        ->add('roles', ChoiceType::class,[
-          'choices' => [
-              'User' => 'ROLE_USER',
-              'Admin' => 'ROLE_ADMIN',
-              'Super Admin' => 'ROLE_SUPER_ADMIN',
-            ]
-          ])
+        // ->add('roles', ChoiceType::class,[
+        //   'choices' => [
+        //       'User' => 'ROLE_USER',
+        //       'Admin' => 'ROLE_ADMIN',
+        //       'Super Admin' => 'ROLE_SUPER_ADMIN',
+        //     ]
+        //   ])
        
         ->getForm();
       $form->handleRequest($request);

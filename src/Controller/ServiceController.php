@@ -94,8 +94,8 @@ class ServiceController extends AbstractController
       $manager->remove($fournisseur);
       $manager->flush(); 
       
-      $response = new Response();
-      $response->send();
+      // $response = new Response();
+      // $response->send();
       
       return $this->redirectToRoute('afficherService');
    }

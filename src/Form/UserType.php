@@ -10,6 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Security\Core\Role\Role;
+
 // use PhpParser\Node\Expr\Cast\String_;
 
 class UserType extends AbstractType
@@ -24,13 +26,13 @@ class UserType extends AbstractType
             ->add('Email')
             ->add('username')
             ->add('password')
-            ->add('roles', ChoiceType::class,[
-                'data_class' => null,
+            ->add('roles', ChoiceType::class,[  
                 'choices' => [
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                     'Super Admin' => 'ROLE_SUPER_ADMIN',
                 ],
+              
             ])
             // ->addModelTransformer($transformer);
 
@@ -38,30 +40,30 @@ class UserType extends AbstractType
            
         // $builder->get('roles')
            
-            // ->addModelTransformer(new CallbackTransformer(
-            //     function ($roles) {
-            //         // transform the array to a string
-            //         return implode(', ', (array)$roles);
-            //     },
-            //     function ($roles) {
-            //         // transform the string back to an array
-            //         return explode(', ', (string)$roles);
-            //     }
-            // ))
-        ;
+        //     ->addModelTransformer(new CallbackTransformer(
+        //         function ($roles) {
+        //             // transform the array to a string
+        //             return implode(', ', (array)$roles);
+        //         },
+        //         function ($roles) {
+        //             // transform the string back to an array
+        //             return explode(', ', (string)$roles);
+        //         }
+        //     ))
+        // ;
 
         //roles field data transformer
-// $builder->get('roles')
-// ->addModelTransformer(new CallbackTransformer(
-//     function ($rolesArray) {
-//          // transform the array to a string
-//          return count($rolesArray)? $rolesArray[0]: null;
-//     },
-//     function ($rolesString) {
-//          // transform the string back to an array
-//          return [$rolesString];
-//     }
-// ));
+            ->get('roles')
+            ->addModelTransformer(new CallbackTransformer(
+    function ($roles) {
+         // transform the array to a string
+         return count((array)$roles) ? $roles[0]: null;
+    },
+    function ($roles) {
+         // transform the string back to an array
+         return [(string)$roles];
+    }
+));
     
     //roles field data transformer
     // $builder->get('roles')

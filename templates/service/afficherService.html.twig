@@ -25,7 +25,29 @@
             <td>
               {# <a href="" class="btn btn-dark">Show</a> #}
               <a href="/service/{{ service.id }}" class="btn btn-success">Modifier</a>
-              <a href="/supprimerService/{{ service.id }}" class="btn btn-danger delete-service" data-id="{{ service.id }}" onclick="return confirm('Etes-vous sûr de vouloir effectuer la suppession? ')">Supprimer</a>
+              {# <a href="/supprimerService/{{ service.id }}" class="btn btn-danger delete-service" data-id="{{ service.id }}" onclick="return confirm('Etes-vous sûr de vouloir effectuer la suppession? ')">Supprimer</a> #}
+
+              <a class="btn btn-danger delete-user" data-toggle="modal" data-target="#exampleModal">Supprimer</a>
+              <!-- Message de Confirmation -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel" style="color: red;font-weight:bold">Suppression</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3 style="font-weight:bold">Voulez-vous effectuer la suppression ?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size:20px">Annuler</button>
+        <a href="/supprimerService/{{ service.id }}"><button type="button" class="btn btn-primary" style="font-size:20px">Confirmer</button></a>
+      </div>
+    </div>
+  </div>
             </td>
           </tr>
           

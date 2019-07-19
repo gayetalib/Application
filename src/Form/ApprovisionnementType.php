@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
 class ApprovisionnementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {    
         $builder
             ->add('NumeroCommande')
             ->add('DateEntree')

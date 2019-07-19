@@ -7,6 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ApprovisionnementRepository")
+ * @UniqueEntity(
+ *   fields="NumeroCommande",
+ *   message="Ce numero de Commande est déjà entré"
+ * )
  */
 class Approvisionnement
 {
@@ -23,7 +27,7 @@ class Approvisionnement
     private $NumeroCommande;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $DateEntree;
 
@@ -34,6 +38,10 @@ class Approvisionnement
     private $fournisseurs;
 
     /**
+     *  @Assert\GreaterThan(
+     *  value=0,
+     *  message="Cette valeur doit etre positive"
+     * )
      * @ORM\Column(type="integer")
      */
     public $QuantiteApprov; 

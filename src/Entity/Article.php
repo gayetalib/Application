@@ -35,6 +35,10 @@ class Article
     private $Designation;
 
     /**
+     *  @Assert\GreaterThan(
+     *  value=0,
+     *  message="Cette valeur doit etre positive"
+     * )
      * @ORM\Column(type="integer")
      */
     private $AlerteStock;
@@ -50,6 +54,10 @@ class Article
     private $situation;
 
     /**
+     * @Assert\GreaterThan(
+     *  value=0,
+     *  message="Cette valeur doit etre positive"
+     * )
      * @ORM\Column(type="integer")
      */
     public $QuantiteStock;

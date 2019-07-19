@@ -75,8 +75,19 @@ class ArticleController extends AbstractController
              'Ajouté avec Succès'
          );
       }
+
+
+
+
+   
+      $user = $this->getDoctrine()
+      ->getRepository(TypeArticle::class)
+      ->findAll();
+
+ 
         return $this->render('article/ajouterTypeArticle.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 

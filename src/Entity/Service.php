@@ -33,7 +33,7 @@ class Service
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Departement", inversedBy="services")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $departements;
 

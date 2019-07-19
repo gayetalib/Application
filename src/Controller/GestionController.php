@@ -140,6 +140,18 @@ class GestionController extends AbstractController
         ->find($id);
          
         $manager = $this->getDoctrine()->getManager();
+
+        //recuperer la quantite stockee pour l'article : initiale 0
+        $val1=$user->getArticles()->getQuantiteStock();
+        //La valeur approvisionnee actuellement
+        $val2=$user->getQuantiteCons();
+        //La difference
+      
+        $val=$val1+$val2;
+
+        //Update la valeur stockee
+        $user->getArticles()->setQuantiteStock($val);
+
         
         $manager->remove($user);
         $manager->flush(); 
@@ -249,6 +261,17 @@ class GestionController extends AbstractController
         ->find($id);
          
         $manager = $this->getDoctrine()->getManager();
+
+        //recuperer la quantite stockee pour l'article : initiale 0
+        $val1=$user->getArticles()->getQuantiteStock();
+        //La valeur approvisionnee actuellement
+        $val2=$user->getQuantiteApprov();
+        //La difference
+      
+        $val=$val1-$val2;
+
+        //Update la valeur stockee
+        $user->getArticles()->setQuantiteStock($val);
         
         $manager->remove($user);
         $manager->flush(); 

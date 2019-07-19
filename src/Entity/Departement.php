@@ -31,7 +31,7 @@ class Departement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Direction", inversedBy="departements")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     public $directions;
 

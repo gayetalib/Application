@@ -30,6 +30,10 @@ class Fournisseur
     private $NomFournisseur;
 
     /**
+     *  @Assert\GreaterThan(
+     *  value=0,
+     *  message="Cette valeur doit etre positive"
+     * )
      * @ORM\Column(type="integer")
      */
     private $numeroFournisseur;
@@ -53,6 +57,16 @@ class Fournisseur
      * @ORM\Column(type="integer")
      */
     private $Fax;
+
+    // /**
+    //  * @ORM\Column(type="integer")
+    //  */
+    // private $etats;
+
+    // /**
+    //  * @ORM\Column(type="string")
+    //  */
+    // private $situations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Approvisionnement", mappedBy="fournisseurs")
